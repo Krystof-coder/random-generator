@@ -17,6 +17,8 @@ body {
     background-color: var(--primary);
 }
 
+/*#output | start*/
+
 .random, .input {
     min-height: 20rem;
 }
@@ -49,28 +51,30 @@ body {
     max-width: inherit;
     min-width: inherit;
     border-radius: 50%;
+    animation-play-state: paused;
+    animation-iteration-count: infinite;
 }
 
 @keyframes ring {
     0% {
         transform: rotate(0 deg);
-        box-shadow: 0px 3px 0px #00e1ff;
+        box-shadow: 0px 3px 0px #FFBB00;
     }
     25% {
         transform: rotate(90deg);
-        box-shadow: 0px 3px 0px #0077ff;
+        box-shadow: 0px 3px 0px #ff5e14;
     }
     50% {
         transform: rotate(180deg);
-        box-shadow: 0px 3px 0px #2f00ff;
+        box-shadow: 0px 3px 0px #ff0000;
     }
     75% {
         transform: rotate(270deg);
-        box-shadow: 0px 3px 0px #0026ff;
+        box-shadow: 0px 3px 0px #ff6c09;
     }
     100% {
         transform: rotate(360deg);
-        box-shadow: 0px 3px 0px #00ccff;
+        box-shadow: 0px 3px 0px #FFBB00;
     }
 }
 
@@ -83,20 +87,13 @@ body {
     height: 100%;
     box-shadow: 0 0 5px var(--secondary);
     border-radius: 50%;
-    animation: ring 1s linear infinite;
-    animation-play-state: paused;
-}
-
-.random-start {
-    background: linear-gradient(90deg, #00e1ff, #1100ff);
-    cursor: pointer;
-    z-index: 1;
-    border: none;
-    border-radius: 2rem;
-    box-shadow: 2px 4px #02033a;
+    animation: ring 1s linear;
+    animation-iteration-count: inherit;
+    animation-play-state: inherit;
 }
 
 .output {
+    text-align: center;
     padding: 1rem 2rem;
     color: var(--white);
     font-weight: 300;
@@ -104,23 +101,27 @@ body {
     font-size: 1.7rem;
 }
 
+/*! output | end*/
+
+/*# number input | start*/
+
 .input {
     background-color: var(--primary);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
-.number, .text {
+.number, .name {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.number, .text > h2{
+.number, .name > h2{
     text-align: center;
 }
 
-.number > h2, .text > h2 {
+.number > h2, .name > h2 {
     color: var(--white);
     margin-block: 3rem;
     font-weight: 400;
@@ -132,7 +133,6 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-block-end: 2rem;
 }
 
 .num-in {
@@ -153,34 +153,80 @@ body {
     font-weight: 400;
 }
 
-.num-submit {
+#numErrMes {
+    margin-block: .3rem 2rem;
+}
+
+#numErrMes > p{
+    color: #ff0000e2;
+    opacity: 50;
+    font-size: .9rem;
+}
+
+/*! number input | end*/
+
+/*# submit buttons | start*/
+
+.in-submit {
     display: flex;
     align-items: center;
     position: relative;
     border-radius: 5px;
     font-size: 1.4rem;
-    padding: .5rem 1rem;
-    padding-inline-end: 2rem;
-    color: var(--white);
-    background-color: var(--secondary);
+    padding: .5rem 1.5rem;
+    color: transparent;
+    background-color: transparent;
+    transition: all .3s ease;
+    cursor: pointer;
+    border: 3px solid #ffbb00;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #FFBB00, #ffae00);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 500;
 }
 
 .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    right: 10px;
-    aspect-ratio: 1/1;
-    height: 60%;
-    transform: rotate(45deg);
-    border-right: 5px solid red;
-    border-top: 5px solid red;
-    border-radius: 5px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffbb00;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .3s ease;
 }
 
-.text {
+.arrow-icon {
+    aspect-ratio: 1/1;
+    block-size: 60%;
+    transition: all .3s ease;
+    stroke: var(--primary);
+}
+
+.in-submit:hover > .arrow {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.in-submit:focus > .arrow {
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+/*! submit buttons | end*/
+
+/*# name input | start*/
+
+.name {
     margin-block-end: 5rem;
 }
 
-.txt-input-container {
+.name-input-container {
     display: flex;
     justify-content: center;
     position: relative;
@@ -189,7 +235,7 @@ body {
     max-inline-size: 400px;
 }
 
-.txt-in {
+.name-in {
     position: relative;
     background-color: var(--block);
     border: none;
@@ -202,7 +248,7 @@ body {
     font-weight: 300;
 }
 
-.txt-in::placeholder {
+.name-in::placeholder {
     font-weight: 400;
 }
 
@@ -216,15 +262,15 @@ body {
     cursor: pointer;
 }
 
-.txt-display {
+.name-display {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     justify-content: center;
     inline-size: 100%;
-    margin-block-start: 2.5rem;
+    margin-block: 2.5rem;
 }
 
-.txt-display > h3{
+.name-display > h3{
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -240,7 +286,7 @@ body {
     max-inline-size: 400px;
 }
 
-.txt-display > h3 > div {
+.name-display > h3 > div {
     display: flex;
     align-items: center;
     gap: 2px;
@@ -248,7 +294,7 @@ body {
     margin-inline-start: 5px;
 }
 
-.txt-display > h3 > div > button {
+.name-display > h3 > div > button {
     display: inherit;
     block-size: fit-content;
     border: none;
@@ -257,7 +303,7 @@ body {
     cursor: pointer;
 }
 
-.txt-display > h3 > div > button > svg {
+.name-display > h3 > div > button > svg {
     aspect-ratio: 1/1;
     inline-size: 1rem;
     stroke: var(--secondary);
