@@ -38,11 +38,15 @@ function randomNumber(params) {
     }
 }
 
+//# animation
+
 function getRandomNum(from, to) {
     let int = null;
     let turn = 1;
     let ring = document.getElementById('ring');
     let stop;
+
+    document.getElementById('numErrMes').innerHTML = null;
 
     if ((from - to) > 10 || (from - to) < -10) {
 
